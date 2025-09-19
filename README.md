@@ -19,66 +19,95 @@ This tool is designed to replace cumbersome shell scripts that rely on parsing h
 - **Reliable Parsing:** Uses `git status --porcelain=v1` for stable, script-friendly output.
   
 
-## Usage
+## Installation and Usage
 
-1. **Save the script:** Save the code as `git-scan.py`.
-  
-2. **Make it executable (Linux/macOS):**
+### Step 1: Get the Script
+
+Clone the repository to your local machine:
+
+```
+git clone [https://github.com/sagearbor/git-scan.git](https://github.com/sagearbor/git-scan.git)cd git-scan
+```
+
+### Step 2: Make it Executable Everywhere (Recommended)
+
+To run the script from any directory, you should place it in a directory that is part of your system's `PATH`. A common practice is to have a `~/bin` directory for user scripts.
+
+1. **Create a `bin` directory in your home folder if it doesn't exist:**
   
   ```
-  chmod +x git-scan.py
+  mkdir -p ~/bin
   ```
   
-3. **Run the commands:**
+2. **Move the script into your `bin` directory (you can also rename it for convenience):**
   
-  - **Show help menu:**
-    
-    ```
-    ./git-scan.py -h
-    ```
-    
-  - **Scan the current directory (full width):**
-    
-    ```
-    ./git-scan.py
-    ```
-    
-  - **Scan a specific path:**
-    
-    ```
-    ./git-scan.py ~/projects/work
-    ```
-    
-  - **Show only repos with changes:**
-    
-    ```
-    ./git-scan.py -d
-    ```
-    
-  - **Use the standard condensed view:**
-    
-    ```
-    ./git-scan.py -c
-    ```
-    
-  - **Use the super-condensed view:**
-    
-    ```
-    ./git-scan.py -C
-    ```
-    
-  - **Use a custom condensed view (e.g., 15 characters):**
-    
-    ```
-    ./git-scan.py -c15# OR./git-scan.py --condensed 15
-    ```
-    
-  - **Combine flags (e.g., show dirty repos only with a 20-char width):**
-    
-    ```
-    ./git-scan.py -d -c20
-    ```
-    
+  ```
+  mv git-scan.py ~/bin/git-scan
+  ```
+  
+3. **Add your `~/bin` directory to your `PATH`.** Run the appropriate command for your shell (you only need to do this once).
+  
+  *For Bash users (common on Linux):*
+  
+  ```
+  echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrcsource ~/.bashrc
+  ```
+  
+  *For Zsh users (common on macOS):*
+  
+  ```
+  echo 'export PATH="$HOME/bin:$PATH"' >> ~/.zshrcsource ~/.zshrc
+  ```
+  
+4. **Verify the installation:**
+  
+  ```
+  which git-scan
+  ```
+  
+  This should output the path to your script (e.g., `/home/user/bin/git-scan`).
+  
+
+### Step 3: Run the Commands
+
+Once installed, you can run the script from anywhere.
+
+- **Show help menu:**
+  
+  ```
+  git-scan -h
+  ```
+  
+- **Scan a specific path:**
+  
+  ```
+  git-scan ~/projects/work
+  ```
+  
+- **Show only repos with changes:**
+  
+  ```
+  git-scan -d
+  ```
+  
+- **Use the super-condensed view:**
+  
+  ```
+  git-scan -C
+  ```
+  
+- **Use a custom condensed view (e.g., 15 characters):**
+  
+  ```
+  git-scan -c15
+  ```
+  
+- **Combine flags (e.g., show dirty repos only with a 20-char width):**
+  
+  ```
+  git-scan -d -c20
+  ```
+  
 
 ## Example Output
 
@@ -86,12 +115,6 @@ This tool is designed to replace cumbersome shell scripts that rely on parsing h
 
 ```
 Repository                                 Branch                                   Ahead Behind Staged Unstaged Untracked------------------------------------------ ---------------------------------------- ----- ------ ------ -------- ---------OLD_BAD/xxxOopsOralTry-Medschool_ArborTester main                                         0      0      0        1        17word-doc-chatbot                           use_fallback_doc_with_comments               1      0      0        0         0
-```
-
-**Condensed View (`-c`):**
-
-```
-Repository                               Branch                                 Ahead Behind Staged Unstaged Untracked---------------------------------------- -------------------------------------- ----- ------ ------ -------- ---------OLD_BAD/xxxOopsOralTry-Medschool_Arb...  main                                       0      0      0        1        17word-doc-chatbot                         use_fallback_doc_with_comments             1      0      0        0         0
 ```
 
 **Super Condensed View (`-C`):**
